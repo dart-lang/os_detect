@@ -39,4 +39,4 @@ to whatever values are desired.
 The class `OperatingSystemID` can also be used directly to
 abstract over the operating system name and version.
 The `OperatingSystemID.current` defaults to the values provided by the platform
-when not overridden using `overrideOperatingSystem`,
+when not overridden using `overrideOperatingSystem`.
