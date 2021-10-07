@@ -3,13 +3,18 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// Functionality to override information about the current platform.
+///
+/// The main classes of the package are declared here to allow them
+/// to interact with the override functionality.
 library pkg.os_detect.override;
 
 import "dart:async" show Zone, runZoned;
 
-import 'src/osid_unknown.dart'
+import "src/osid_unknown.dart"
     if (dart.library.io) "src/osid_io.dart"
     if (dart.library.html) "src/osid_html.dart";
+
+import "src/constants.dart";
 
 /// The name and version of an operating system.
 class OperatingSystem {
@@ -20,7 +25,7 @@ class OperatingSystem {
   /// but can be overridden using functionality from the
   /// `osid_override.dart` library.
   static OperatingSystem get current =>
-      Zone.current[#_os] as OperatingSystem? ?? platformOS;
+      (Zone.current[#_osid] as OperatingSystem?) ?? platformOS;
 
   /// A string representing the operating system or platform.
   final String id;
@@ -47,37 +52,37 @@ extension OperatingSystemGetters on OperatingSystem {
   /// This value is `false` if the operating system is a specialized
   /// version of Linux that identifies itself by a different name,
   /// for example Android (see [isAndroid]).
-  bool get isLinux => ("linux" == id);
+  bool get isLinux => (idLinux == id);
 
   /// Whether the operating system is a version of
   /// [macOS](https://en.wikipedia.org/wiki/MacOS).
   ///
   /// Identified by [id] being the string `macos`.
-  bool get isMacOS => ("macos" == id);
+  bool get isMacOS => (idMacOS == id);
 
   /// Whether the operating system is a version of
   /// [Microsoft Windows](https://en.wikipedia.org/wiki/Microsoft_Windows).
   ///
   /// Identified by [id] being the string `windows`.
-  bool get isWindows => ("windows" == id);
+  bool get isWindows => (idWindows == id);
 
   /// Whether the operating system is a version of
   /// [Android](https://en.wikipedia.org/wiki/Android_%28operating_system%29).
   ///
   /// Identified by [id] being the string `android`.
-  bool get isAndroid => ("android" == id);
+  bool get isAndroid => (idAndroid == id);
 
   /// Whether the operating system is a version of
   /// [iOS](https://en.wikipedia.org/wiki/IOS).
   ///
   /// Identified by [id] being the string `ios`.
-  bool get isIOS => ("ios" == id);
+  bool get isIOS => (idIOS == id);
 
   /// Whether the operating system is a version of
   /// [Fuchsia](https://en.wikipedia.org/wiki/Google_Fuchsia).
   ///
   /// Identified by [id] being the string `fuchsia`.
-  bool get isFuchsia => ("fuchsia" == id);
+  bool get isFuchsia => (idFuchsia == id);
 
   /// Whether running in a web browser.
   ///
@@ -85,7 +90,7 @@ extension OperatingSystemGetters on OperatingSystem {
   ///
   /// If so, the [version] is the string made available
   /// through `window.navigator.appVersion`.
-  bool get isBrowser => ("browser" == id);
+  bool get isBrowser => (idBrowser == id);
 }
 
 /// Run [body] in a zone with platform overrides.
@@ -97,5 +102,5 @@ extension OperatingSystemGetters on OperatingSystem {
 /// exported by `package:osid/osid.dart`.
 R overrideOperatingSystem<R>(
     OperatingSystem operatingSystem, R Function() body) {
-  return runZoned(body, zoneValues: {#_os: operatingSystem});
+  return runZoned(body, zoneValues: {#_osid: operatingSystem});
 }
