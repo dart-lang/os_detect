@@ -5,6 +5,7 @@
   Setting these duing production mode compilation might allow the compiler
   to recognize that the `operatingSystem` value is effectively constant
   and more eagerly remove unreachable code.
+
 ## 2.0.0
 
 - Stable null safety release.
