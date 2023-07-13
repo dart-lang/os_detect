@@ -4,9 +4,9 @@
 
 import 'dart:html';
 
-import '../override.dart';
+import 'override.dart';
 
-const String _os = 'browser';
 String get _osVersion => window.navigator.appVersion;
 
-final OperatingSystem platformOS = OperatingSystem(_os, _osVersion);
+final OperatingSystem platformOS =
+    OperatingSystemInternal(const BrowserOS(), _osVersion);

@@ -25,7 +25,7 @@ void main() {
   test('Override', () {
     const overrideName = 'argle-bargle';
     const overrideVersion = 'glop-glyf';
-    const overrideOS = OperatingSystem(overrideName, overrideVersion);
+    final overrideOS = OperatingSystem(overrideName, overrideVersion);
     Zone? overrideZone;
 
     final originalName = operatingSystem;
