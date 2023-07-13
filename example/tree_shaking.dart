@@ -16,7 +16,7 @@
 import 'package:os_detect/os_detect.dart' as platform;
 
 void main() {
-  if (platform.isLinux) { 
+  if (platform.isLinux) {
     print('Is Linux');
   } else {
     print('SOMETHING ELSE');
