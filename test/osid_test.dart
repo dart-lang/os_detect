@@ -13,13 +13,13 @@ void main() {
     expect(operatingSystem, isNotNull);
     expect(operatingSystemVersion, isNotNull);
 
-    expect(isLinux, operatingSystem == 'linux');
-    expect(isAndroid, operatingSystem == 'android');
-    expect(isMacOS, operatingSystem == 'macos');
-    expect(isWindows, operatingSystem == 'windows');
-    expect(isIOS, operatingSystem == 'ios');
-    expect(isFuchsia, operatingSystem == 'fuchsia');
-    expect(isBrowser, operatingSystem == 'browser');
+    expect(isLinux, operatingSystem == OperatingSystem.linuxId);
+    expect(isAndroid, operatingSystem == OperatingSystem.androidId);
+    expect(isMacOS, operatingSystem == OperatingSystem.macOSId);
+    expect(isWindows, operatingSystem == OperatingSystem.windowsId);
+    expect(isIOS, operatingSystem == OperatingSystem.iOSId);
+    expect(isFuchsia, operatingSystem == OperatingSystem.fuchsiaId);
+    expect(isBrowser, operatingSystem == OperatingSystem.browserId);
   });
 
   test('Override', () {

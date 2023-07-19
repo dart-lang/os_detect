@@ -4,22 +4,27 @@
 
 import 'dart:io';
 
-import 'override.dart';
+import 'os_kind.dart';
+import 'os_override.dart';
 
+// Uses VM platform-constant functionality to constant fold this expression
+// when `Platform.operatingSystem` is known at compile-time.
+// Uses a valid "potentially constant" expression for this, instead of, e.g.,
+// a `switch` expression.
 @pragma('vm:platform-const')
-final OS? _osType = Platform.operatingSystem == 'linux'
+final RecognizedOS? _osType = Platform.operatingSystem == RecognizedOS.linuxId
     ? const LinuxOS()
-    : Platform.operatingSystem == 'macos'
+    : Platform.operatingSystem == RecognizedOS.macOSId
         ? const MacOS()
-        : Platform.operatingSystem == 'windows'
+        : Platform.operatingSystem == RecognizedOS.windowsId
             ? const WindowsOS()
-            : Platform.operatingSystem == 'android'
+            : Platform.operatingSystem == RecognizedOS.androidId
                 ? const AndroidOS()
-                : Platform.operatingSystem == 'ios'
+                : Platform.operatingSystem == RecognizedOS.iOSId
                     ? const IOS()
-                    : Platform.operatingSystem == 'fuchsia'
+                    : Platform.operatingSystem == RecognizedOS.fuchsiaId
                         ? const FuchsiaOS()
-                        : Platform.operatingSystem == 'browser'
+                        : Platform.operatingSystem == RecognizedOS.browserId
                             ? const BrowserOS()
                             : null;
 

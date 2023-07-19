@@ -3,6 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// Functionality to override information about the current platform.
-library pkg.os_detect.src.override;
+library;
 
-export 'src/override.dart' show OperatingSystem, overrideOperatingSystem;
+export 'src/os_override.dart' show OperatingSystem, overrideOperatingSystem;

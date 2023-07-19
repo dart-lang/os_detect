@@ -4,7 +4,8 @@
 
 import 'dart:html';
 
-import 'override.dart';
+import 'os_kind.dart' show BrowserOS;
+import 'os_override.dart';
 
 String get _osVersion => window.navigator.appVersion;
 
