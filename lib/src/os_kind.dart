@@ -16,7 +16,7 @@ library;
 /// Operating identity object.
 ///
 /// By only instantiating these subtypes guarded by target-OS guarded
-/// checks, unless using the "for testing" [OperatingSystem] constructor,
+/// checks, unless using the "for testing" `OperatingSystem` constructor,
 /// all but one of the subclasses should be tree-shaken,
 /// and, e.g., the `_isId is IOS` test above should become tree-shakable
 /// on all other platforms.
