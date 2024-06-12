@@ -35,6 +35,7 @@ String get operatingSystemVersion => OperatingSystem.current.version;
 /// for example Android (see [isAndroid]),
 /// or if the code is running inside a browser (see [isBrowser]).
 @pragma('vm:prefer-inline')
+@pragma('dart2js:prefer-inline')
 bool get isLinux => OperatingSystem.current.isLinux;
 
 /// Whether the current operating system is a version of
@@ -45,6 +46,7 @@ bool get isLinux => OperatingSystem.current.isLinux;
 /// The value is `false` if the code is running inside a browser,
 /// even if that browser is running on MacOS (see [isBrowser]).
 @pragma('vm:prefer-inline')
+@pragma('dart2js:prefer-inline')
 bool get isMacOS => OperatingSystem.current.isMacOS;
 
 /// Whether the current operating system is a version of
@@ -55,6 +57,7 @@ bool get isMacOS => OperatingSystem.current.isMacOS;
 /// The value is `false` if the code is running inside a browser,
 /// even if that browser is running on Windows (see [isBrowser]).
 @pragma('vm:prefer-inline')
+@pragma('dart2js:prefer-inline')
 bool get isWindows => OperatingSystem.current.isWindows;
 
 /// Whether the current operating system is a version of
@@ -65,6 +68,7 @@ bool get isWindows => OperatingSystem.current.isWindows;
 /// The value is `false` if the code is running inside a browser,
 /// even if that browser is running on Android (see [isBrowser]).
 @pragma('vm:prefer-inline')
+@pragma('dart2js:prefer-inline')
 bool get isAndroid => OperatingSystem.current.isAndroid;
 
 /// Whether the current operating system is a version of
@@ -75,6 +79,7 @@ bool get isAndroid => OperatingSystem.current.isAndroid;
 /// The value is `false` if the code is running inside a browser,
 /// even if that browser is running on iOS (see [isBrowser]).
 @pragma('vm:prefer-inline')
+@pragma('dart2js:prefer-inline')
 bool get isIOS => OperatingSystem.current.isIOS;
 
 /// Whether the current operating system is a version of
@@ -85,6 +90,7 @@ bool get isIOS => OperatingSystem.current.isIOS;
 /// The value is `false` if the code is running inside a browser,
 /// even if that browser is running on Fuchsia (see [isBrowser]).
 @pragma('vm:prefer-inline')
+@pragma('dart2js:prefer-inline')
 bool get isFuchsia => OperatingSystem.current.isFuchsia;
 
 /// Whether running in a web browser.
@@ -101,4 +107,5 @@ bool get isFuchsia => OperatingSystem.current.isFuchsia;
 /// but browsers are able to lie in the app-version/user-agent
 /// string.
 @pragma('vm:prefer-inline')
+@pragma('dart2js:prefer-inline')
 bool get isBrowser => OperatingSystem.current.isBrowser;

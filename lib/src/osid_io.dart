@@ -28,6 +28,8 @@ final RecognizedOS? _osType = Platform.operatingSystem == RecognizedOS.linuxId
                             ? const BrowserOS()
                             : null;
 
+String _osVersion() => Platform.operatingSystemVersion;
+
+@pragma('vm:platform-const')
 final OperatingSystem platformOS = OperatingSystemInternal(
-    _osType ?? UnknownOS(Platform.operatingSystem),
-    Platform.operatingSystemVersion);
+    _osType ?? UnknownOS(Platform.operatingSystem), _osVersion);

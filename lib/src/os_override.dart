@@ -63,7 +63,8 @@ final class OperatingSystem {
   /// from known platform specific libraries,
   /// but can be overridden using functionality from the
   /// `osid_override.dart` library.
-  @pragma('vm:try-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
   static OperatingSystem get current =>
       Zone.current[#_os] as OperatingSystem? ?? platformOS;
 
@@ -73,10 +74,12 @@ final class OperatingSystem {
   // Operating system ID object.
   final RecognizedOS _osId;
 
+  final String Function() _computeVersion;
+
   /// A string representing the version of the operating system or platform.
   ///
   /// May be empty if no version is known or available.
-  final String version;
+  String get version => _computeVersion();
 
   /// Creates a new operating system object for testing.
   ///
@@ -91,7 +94,8 @@ final class OperatingSystem {
   // That can avoid retaining *all* the subclasses of `OS`.
   @visibleForTesting
   @pragma('vm:prefer-inline')
-  OperatingSystem(String id, String version)
+  @pragma('dart2js:prefer-inline')
+  OperatingSystem(String id, String Function() computeVersion)
       : this._(
             id == linuxId
                 ? const LinuxOS()
@@ -108,10 +112,10 @@ final class OperatingSystem {
                                     : id == browserId
                                         ? const BrowserOS()
                                         : UnknownOS(id),
-            version);
+            computeVersion);
 
   /// Used by platforms which know the ID object.
-  const OperatingSystem._(this._osId, this.version);
+  const OperatingSystem._(this._osId, this._computeVersion);
 
   /// Whether the operating system is a version of
   /// [Linux](https://en.wikipedia.org/wiki/Linux).
@@ -176,5 +180,5 @@ R overrideOperatingSystem<R>(
 // Exposes the `OperatingSystem._` constructor to the conditionally imported
 // libraries. Not exported by `../override.dart'.
 final class OperatingSystemInternal extends OperatingSystem {
-  const OperatingSystemInternal(super.id, super.version) : super._();
+  const OperatingSystemInternal(super.id, super.computeVersion) : super._();
 }
