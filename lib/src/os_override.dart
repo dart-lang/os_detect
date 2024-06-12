@@ -8,8 +8,8 @@ import 'package:meta/meta.dart';
 
 import 'os_kind.dart';
 import 'osid_unknown.dart'
-    if (dart.library.io) 'osid_io.dart'
-    if (dart.library.html) 'osid_html.dart';
+if (dart.library.io) 'osid_io.dart'
+if (dart.library.html) 'osid_html.dart';
 
 /// The name and version of an operating system.
 final class OperatingSystem {
@@ -93,23 +93,18 @@ final class OperatingSystem {
   @pragma('vm:prefer-inline')
   OperatingSystem(String id, String version)
       : this._(
-            id == linuxId
-                ? const LinuxOS()
-                : id == macOSId
-                    ? const MacOS()
-                    : id == windowsId
-                        ? const WindowsOS()
-                        : id == androidId
-                            ? const AndroidOS()
-                            : id == iOSId
-                                ? const IOS()
-                                : id == fuchsiaId
-                                    ? const FuchsiaOS()
-                                    : id == browserId
-                                        ? const BrowserOS()
-                                        : UnknownOS(id),
-            version);
+      _osMap[id] ?? UnknownOS(id),
+      version);
 
+  static const _osMap = {
+    linuxId: LinuxOS(),
+    macOSId: MacOS(),
+    windowsId: WindowsOS(),
+    androidId: AndroidOS(),
+    iOSId: IOS(),
+    fuchsiaId: FuchsiaOS(),
+    browserId: BrowserOS(),
+  };
   /// Used by platforms which know the ID object.
   const OperatingSystem._(this._osId, this.version);
 
@@ -170,7 +165,7 @@ final class OperatingSystem {
 /// This override affects the `operatingSystem` and `version`
 /// exported by `package:osid/osid.dart`.
 R overrideOperatingSystem<R>(
-        OperatingSystem operatingSystem, R Function() body) =>
+    OperatingSystem operatingSystem, R Function() body) =>
     runZoned(body, zoneValues: {#_os: operatingSystem});
 
 // Exposes the `OperatingSystem._` constructor to the conditionally imported
