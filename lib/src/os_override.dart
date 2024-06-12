@@ -66,7 +66,7 @@ final class OperatingSystem {
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
   static OperatingSystem get current =>
-      Zone.current[#_os] as OperatingSystem? ?? platformOS;
+      _getOperatingSystemOverride?.call() ?? platformOS;
 
   /// A string representing the operating system or platform.
   String get id => _osId.id;
@@ -174,11 +174,25 @@ final class OperatingSystem {
 /// This override affects the `operatingSystem` and `version`
 /// exported by `package:osid/osid.dart`.
 R overrideOperatingSystem<R>(
-        OperatingSystem operatingSystem, R Function() body) =>
-    runZoned(body, zoneValues: {#_os: operatingSystem});
+    OperatingSystem operatingSystem, R Function() body) {
+  // Initialize [_getOperatingSystemOverride]: it is initially set to `null`
+  // to enable compilers to fully constant fold [OperatingSystem.current].
+  _getOperatingSystemOverride = _getOperatingSystemOverrideFromZone;
+  return runZoned(body, zoneValues: {#_os: operatingSystem});
+}
 
 // Exposes the `OperatingSystem._` constructor to the conditionally imported
 // libraries. Not exported by `../override.dart'.
 final class OperatingSystemInternal extends OperatingSystem {
   const OperatingSystemInternal(super.id, super.computeVersion) : super._();
 }
+
+/// Return platform override set by [overrideOperatingSystem].
+///
+/// If [overrideOperatingSystem] is never called this callback will be `null`
+/// which allows compilers to fully constant fold away
+/// [OperatingSystem.current].
+OperatingSystem? Function()? _getOperatingSystemOverride;
+
+OperatingSystem? _getOperatingSystemOverrideFromZone() =>
+    Zone.current[#_os] as OperatingSystem?;
