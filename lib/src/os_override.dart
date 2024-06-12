@@ -95,7 +95,7 @@ final class OperatingSystem {
   @visibleForTesting
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
-  OperatingSystem(String id, String Function() computeVersion)
+  OperatingSystem(String id, String computeVersion)
       : this._(
             id == linuxId
                 ? const LinuxOS()
@@ -112,7 +112,7 @@ final class OperatingSystem {
                                     : id == browserId
                                         ? const BrowserOS()
                                         : UnknownOS(id),
-            computeVersion);
+            () => computeVersion);
 
   /// Used by platforms which know the ID object.
   const OperatingSystem._(this._osId, this._computeVersion);
