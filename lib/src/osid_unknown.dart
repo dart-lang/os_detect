@@ -8,7 +8,7 @@ import 'os_override.dart';
 @pragma('vm:platform-const')
 const String _os =
     String.fromEnvironment('dart.os.name', defaultValue: 'unknown');
-const String _osVersion = String.fromEnvironment('dart.os.version');
+String _osVersion() => const String.fromEnvironment('dart.os.version');
 
 const OperatingSystem platformOS = OperatingSystemInternal(
     _os == RecognizedOS.linuxId
